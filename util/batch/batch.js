@@ -171,8 +171,12 @@ steal('can/util/can.js', function (can) {
 				transactions--;
 			}
 			if (transactions === 0) {
+				if(currentBatchEvents !== null) {
+					return;
+				}
+
 				currentBatchEvents = batchEvents.slice(0);
-				
+
 				var	callbacks = stopCallbacks.slice(0),
 					i, len;
 				batchEvents = [];
@@ -187,7 +191,7 @@ steal('can/util/can.js', function (can) {
 					can.dispatch.apply(currentBatchEvents[i][0],currentBatchEvents[i][1]);
 				}
 				currentBatchEvents = null;
-				
+
 				for(i = 0, len = callbacks.length; i < callbacks.length; i++) {
 					callbacks[i]();
 				}
