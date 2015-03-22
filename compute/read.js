@@ -146,7 +146,9 @@ steal("can/util", function(can){
 		},
 		// read a promise
 		{
-			test: can.isPromise,
+			test: function(value){
+				return can.isPromise(value);
+			},
 			read: function(value, prop, index, options, state){
 				if (!state.foundObservable && options.foundObservable) {
 					options.foundObservable(value, index);
